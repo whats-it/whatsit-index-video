@@ -6,3 +6,4 @@ numpy==1.13.1
 olefile==0.44
 tqdm==4.11.2
 wheel==0.29.0
+requests=2.18.3

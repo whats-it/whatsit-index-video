@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: whatsit-index-video
+  namespace: whatsit
+  labels:
+    name: whatsit-index-video
+spec:
+  containers:
+    name: whatsit-index-video
+    image: whatsit-index-video
+    ports:
+      containerPort: 6379

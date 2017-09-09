@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: whatsit-index-video
+  namespace: whatsit
+spec:
+  replicas:
+  template:
+    metadata:
+      labels:
+        role: whatsit-index-video
+        name: whatsit-index-video
+    spec:
+      containers:
+      - image: gcr.io/whatsit-174908/whatsit-index-video:latest
+        name: whatsit-index-video
+        env:
+        - name: PROJECTID
+          value: whatsit-174908
+        ports:
+        - containerPort: 6379

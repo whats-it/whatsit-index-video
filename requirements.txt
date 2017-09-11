@@ -7,3 +7,5 @@ olefile==0.44
 tqdm==4.11.2
 wheel==0.29.0
 requests=2.18.3
+dropbox=8.1.0
+boto3=1.4.7

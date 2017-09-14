@@ -12,10 +12,10 @@ spec:
         name: whatsit-index-video
     spec:
       containers:
-       image: gcr.io/whatsit-174908/whatsit-index-video:latest
+      - image: gcr.io/whatsit-174908/whatsit-index-video:latest
         name: whatsit-index-video
         env:
-         name: PROJECTID
+        - name: PROJECTID
           value: whatsit-174908
         ports:
-         containerPort: 6379
+        - containerPort: 6379

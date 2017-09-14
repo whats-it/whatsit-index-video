@@ -1,13 +1,15 @@
 apiVersion: v1
-kind: Pod
+kind: Service
 metadata:
   name: whatsit-index-video
   namespace: whatsit
   labels:
     name: whatsit-index-video
 spec:
-  containers:
+  type: LoadBalancer
+  ports:
+    - port: 6379
+      targetPort: 6379
+      protocol: TCP
+  selector:
     name: whatsit-index-video
-    image: whatsit-index-video
-    ports:
-      containerPort: 6379

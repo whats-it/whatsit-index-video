@@ -1,3 +1,5 @@
+import json
+
 import boto3
 import dropbox
 import requests
@@ -37,5 +39,6 @@ def upload_file_to_bucket(bucket, file_path, key):
         s3.upload_fileobj(data, bucket, key)
 
 
-def request_service():
-    pass
+def request_service(url, params):
+    resp = requests.get(url=url, params=params)
+    return json.loads(resp.text)

@@ -31,14 +31,26 @@ def download_file_from_dropbox(save_path, link):
     return dbx.sharing_get_shared_link_file(url=link, path=save_path)
 
 
-def upload_file_to_bucket(bucket, file_path, key):
+def upload_file_to_bucket(bucket, file_path, key, is_public=False):
     """ Upload files to S3 Bucket """
     s3 = boto3.client('s3', aws_access_key_id=AWS_ACCESS_KEY, aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
 
     with open(file_path, 'rb') as data:
         s3.upload_fileobj(data, bucket, key)
 
+    if is_public:
+        s3.put_object_acl(ACL='public-read', Bucket=bucket, Key=key)
 
-def request_service(url, params):
-    resp = requests.get(url=url, params=params)
+    file_url = '%s/%s/%s' % ('https://s3.ap-northeast-2.amazonaws.com', bucket, key)
+    return file_url
+
+
+def request_service(method, url, params):
+    if method == 'GET':
+        resp = requests.get(url=url, params=params)
+    elif method == 'PUT':
+        resp = requests.put(url=url, params=params)
+    elif method == 'POST':
+        resp = requests.post(url=url, params=params)
+
     return json.loads(resp.text)

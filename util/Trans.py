@@ -46,6 +46,8 @@ def upload_file_to_bucket(bucket, file_path, key, is_public=False):
 
 
 def request_service(method, url, params):
+    """ Request to whatsit API server"""
+    resp = None
     if method == 'GET':
         resp = requests.get(url=url, params=params)
     elif method == 'PUT':

@@ -19,13 +19,15 @@ class Extract:
         print('Created temp folders')
 
     def execute(self):
-        datas = Trans.request_service('GET', 'http://api.whatsit.net/datasets/' + self.__dataset_id, [])
-        video_name = datas['data']['data'][0]['name']
-        TIME = [(0, 4), (8, 12), (15, 20), (40, 50), (50, 60)]
+        response_data = Trans.request_service('GET', 'http://api.whatsit.net/datasets/' + self.__dataset_id, [])
+        data_set = response_data['data']['data'][0]
+        video_name = data_set['name']
+        source = data_set['source']
+
+        TIME = [(0, 4), (8, 12), (15, 20), (24, 30), (30, 35)]
 
         video_path = Trans.download_file(os.path.join(self.__path, 'temp.mp4')
-                                         ,
-                                         'http://0.s3.envato.com/h264-video-previews/80fad324-9db4-11e3-bf3d-0050569255a8/490527.mp4')
+                                         , source)
 
         video = VideoFileClip(filename=video_path, audio=False, verbose=True)
         zip = zipfile.ZipFile(os.path.join(self.__path, CONFIG_TEMP_ZIP_FILE_NAME), 'w')
@@ -46,7 +48,7 @@ class Extract:
         print('Deleted temp directory::')
         shutil.rmtree(self.__path)
         params = {
-            'name': 'test',
-            'frames': file_url
+            'data': [{'type': 'video', 'frames': file_url}]
         }
+        print('Requested::')
         print(Trans.request_service('PUT', 'http://api.whatsit.net/datasets/' + self.__dataset_id, params))

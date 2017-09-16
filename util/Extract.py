@@ -44,11 +44,13 @@ class Extract:
         print('\n\nCreated zip file::' + zip.filename)
         file_url = Trans.upload_file_to_bucket('whatsit-dataset-video', zip.filename,
                                                key=self.__dataset_id + '/' + video_name + '.zip', is_public=True)
+
         print(file_url)
         print('Deleted temp directory::')
         shutil.rmtree(self.__path)
         params = {
-            'data': [{'type': 'video', 'frames': file_url}]
+            "type": "video",
+            "data": [{"frames": file_url}]
         }
         print('Requested::')
         print(Trans.request_service('PUT', 'http://api.whatsit.net/datasets/' + self.__dataset_id, params))

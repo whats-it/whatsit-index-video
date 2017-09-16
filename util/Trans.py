@@ -47,12 +47,11 @@ def upload_file_to_bucket(bucket, file_path, key, is_public=False):
 
 def request_service(method, url, params):
     """ Request to whatsit API server"""
-    resp = None
-    if method == 'GET':
-        resp = requests.get(url=url, params=params)
-    elif method == 'PUT':
-        resp = requests.put(url=url, params=params)
+    if method == 'PUT':
+        resp = requests.put(url=url, json=params, timeout=60)
     elif method == 'POST':
-        resp = requests.post(url=url, params=params)
-
+        resp = requests.post(url=url, params=params, timeout=60)
+    else:
+        resp = requests.get(url=url, params=params, timeout=60)
+    print(resp.status_code)
     return json.loads(resp.text)

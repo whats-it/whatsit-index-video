@@ -24,6 +24,7 @@ class Extract:
         video_name = data_set['name']
         source = data_set['source']
 
+        # TODO API로부터 TIME SECTION 을 가져온다
         TIME = [(0, 4), (8, 12), (15, 20), (24, 30), (30, 35)]
 
         video_path = Trans.download_file(os.path.join(self.__path, 'temp.mp4')

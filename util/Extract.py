@@ -5,9 +5,7 @@ import zipfile
 import numpy as np
 from moviepy.editor import VideoFileClip
 
-from util import Trans, Config, Comm
-
-CONFIG_TEMP_ZIP_FILE_NAME = Config.getValue('FILE', 'TEMP_ZIP_FILE_NAME')
+from util import Trans, Comm
 
 
 class Extract:
@@ -24,17 +22,16 @@ class Extract:
         video_name = data_set['name']
         source = data_set['source']
 
-        # TODO API로부터 TIME SECTION 을 가져온다
-        TIME = [(0, 4), (8, 12), (15, 20), (24, 30), (30, 35)]
+        sections = data_set['sections']
 
         video_path = Trans.download_file(os.path.join(self.__path, 'temp.mp4')
                                          , source)
 
         video = VideoFileClip(filename=video_path, audio=False, verbose=True)
-        zip = zipfile.ZipFile(os.path.join(self.__path, CONFIG_TEMP_ZIP_FILE_NAME), 'w')
+        zip = zipfile.ZipFile(os.path.join(self.__path, 'temp.zip'), 'w')
 
         print('[Extracted image file from video]')
-        for i in TIME:
+        for i in sections:
             for k in np.arange(i[0], i[1] + 1, 0.2):
                 filePath = os.path.join(self.__img_path, str(k) + '.jpg')
                 video.save_frame(filename=filePath, t=k)

@@ -18,7 +18,8 @@ def delete_pod():
 
         print('KUBERNETES::' + name_space)
         print('HOSTNAME::' + pod_name)
-        print(os.system('kubectl —namespace=' + name_space + ' delete pod ' + pod_name))
+        print(os.system('chmod 777 ./bin/kubectl'))
+        print(os.system('kubectl --namespace=' + name_space + ' delete pod ' + pod_name))
     except Exception as ex:
         print('Failed to delete pod')
         print(ex)

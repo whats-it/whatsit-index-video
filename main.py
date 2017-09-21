@@ -5,6 +5,8 @@ imageio.plugins.ffmpeg.download()
 import os
 from util.Extract import Extract
 
+print(os.environ)
+
 __data_set_id = None
 
 try:

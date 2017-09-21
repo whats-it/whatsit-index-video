@@ -6,8 +6,8 @@ import requests
 
 from . import Config
 
-AWS_ACCESS_KEY = Config.getValue('AWS', 'AWS_ACCESS_KEY')
-AWS_SECRET_ACCESS_KEY = Config.getValue('AWS', 'AWS_SECRET_ACCESS_KEY')
+AWS_ACCESS_KEY = Config.get_value('AWS', 'AWS_ACCESS_KEY')
+AWS_SECRET_ACCESS_KEY = Config.get_value('AWS', 'AWS_SECRET_ACCESS_KEY')
 
 
 def download_file(save_path, file_url):

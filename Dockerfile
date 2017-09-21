@@ -9,7 +9,10 @@ WORKDIR /usr/src/app
 
 # Installing python dependencies
 COPY requirements.txt /usr/src/app/
+
 RUN pip install -r requirements.txt
+
+ENV PATH /usr/src/app/bin:$PATH
 
 # Copying src code to Container
 COPY . /usr/src/app

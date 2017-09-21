@@ -1,10 +1,24 @@
+import imageio
+
+imageio.plugins.ffmpeg.download()
+
 import os
-
 from util.Extract import Extract
+from util.Comm import delete_pod
 
-# imageio.plugins.ffmpeg.download()
+print(os.environ)
+__data_set_id = None
 
-# TODO Service로 부터 Dataset Id를 가져 온다
-extract = Extract(os.path.join(os.path.dirname(__file__), 'tmp'), '59bb813cc8729c0010ab8929')
-extract.execute()
+try:
+    __data_set_id = os.environ['DATA_SET_ID'].replace('"', '')
+    print('data_setID::' + __data_set_id)
+except Exception as ex:
+    print('Not defined dataset ID value::')
+    print(ex)
 
+if __data_set_id is not None:
+    extract = Extract(os.path.join(os.path.dirname(__file__), 'tmp'), __data_set_id)
+    extract.execute()
+
+# Delete pod
+delete_pod()

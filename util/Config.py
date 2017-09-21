@@ -4,5 +4,5 @@ config = configparser.ConfigParser()
 config.read('./config/config.ini')
 
 
-def getValue(section, value):
+def get_value(section, value):
     return config[section][value]
